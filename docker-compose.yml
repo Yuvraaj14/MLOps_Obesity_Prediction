@@ -1,0 +1,54 @@
+services:
+  backend:
+    build:
+      context: ./Backend
+    container_name: django-backend
+    ports:
+      - "8000:8000"  # Expose port 8000 for the Django backend
+    volumes:
+      - ./Backend:/app  # Mount the Backend directory to /app in the container
+      - ./Backend/Dataset:/Dataset
+      - db_data:/app/db  # Persist the SQLite database in the /app/db directory
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health/"]
+      interval: 30s
+      retries: 3
+      start_period: 5s
+      timeout: 10s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile  # Explicitly define Dockerfile if needed
+    container_name: react-frontend
+    ports:
+      - "3000:80"  # Map host port 3000 to container port 80 (serving production build)
+    depends_on:
+      - backend  # Ensure backend is ready before frontend starts
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      retries: 3
+      start_period: 10s
+      timeout: 10s
+
+  streamlit:
+    build:
+      context: ./MLOPS_StreamLit
+    container_name: streamlit-app
+    ports:
+      - "8501:8501"  # Expose port 8501 for Streamlit
+    volumes:
+      - ./MLOPS_StreamLit:/app  # Mount Streamlit directory to /app in the container
+    depends_on:
+      - backend  # Ensure backend is ready before Streamlit starts
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501"]
+      interval: 30s
+      retries: 3
+      start_period: 10s
+      timeout: 10s
+
+volumes:
+  db_data:  # Define the volume for the SQLite database
+    driver: local  # Explicit volume driver

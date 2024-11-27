@@ -1,0 +1,61 @@
+.App {
+  text-align: center;
+}
+
+body {
+  background-image: url('2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  padding-top: 60px; 
+  padding-bottom: 30px;
+}
+
+.inputbox {
+  margin-top: 5%;
+}
+
+.input-label {
+  color: #ffffff;
+}
+
+.inputbox input {
+  height: 40px;
+  width: 300px;
+  border-radius: 15px;
+  margin: 0 10px 0 0;
+  text-align: center;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 40px;
+  color: #fcf9f9; /* Adjust color as needed */
+}
+
+.prediction-heading {
+  margin-top: 20px;
+  font-size: 30px;
+  color: #faf8f8; /* Adjust color as needed */
+}
+
+.prediction {
+  font-size:30px;
+  color: #faf8f8; /* Adjust color as needed */
+}
